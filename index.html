@@ -516,10 +516,11 @@ function renderGeral(){
   <div class="cli-head"><div class="l"><img src="${IMG.areia}" alt="Vanessa Cunha"><div class="t">Vanessa Cunha Cerâmica<small>Projeto Vitrine Digital</small></div></div></div>
   <div class="hero">
     <div><h2>Olá, ${esc(user)}.</h2><p>Aqui está o andamento do seu projeto: o que já chegou, o que está em produção e o que vem a seguir.</p></div>
-    <div class="prog"><div class="n">${num('pct',t.pct,'%')}<span>do projeto pronto</span></div><div class="track"><div class="fill" data-bar="main" data-p="${t.pct}" style="width:${prevW.main||0}%"></div></div><div class="c"><b>${done} de ${E.length}</b> entregas prontas</div></div>
+    <div class="prog"><div class="n">${num('pct',t.pct,'%')}<span>do projeto pronto</span></div><div class="track"><div class="fill" data-bar="main" data-p="${t.pct}" style="width:${prevW.main||0}%"></div></div><div class="c"><b>${done} de ${E.length}</b> atividades prontas</div></div>
   </div>
+  <div class="sec-title"><h3>Painel de atividades do projeto</h3><p>As 11 atividades contratadas e em que estágio cada uma está. Toque em um número para ver a lista.</p></div>
   <div class="kpis">
-    <button class="kpi" data-go="todas">${num('k0',E.length)}<span><i class="dot total"></i>Contratadas</span></button>
+    <button class="kpi" data-go="todas">${num('k0',E.length)}<span><i class="dot total"></i>Atividades contratadas</span></button>
     <button class="kpi" data-go="concluido">${num('k1',t.c.concluido)}<span><i class="dot concluido"></i>Prontas</span></button>
     <button class="kpi" data-go="producao">${num('k2',t.c.producao)}<span><i class="dot producao"></i>Em progresso</span></button>
     <button class="kpi" data-go="aguardando">${num('k3',t.c.aguardando+(contrato?0:1))}<span><i class="dot aguardando"></i>Aguardando você</span></button>
