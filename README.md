@@ -30,11 +30,13 @@ Para atualizar: substitua os arquivos alterados e faça o push. Nunca renomeie o
 - Usuário: qualquer nome · Senha: `ceramica#2026#`
 - A validação acontece no navegador. É um controle de acesso simples, não segurança forte: não publique aqui dados sensíveis.
 
-## Link do pré-briefing para o Linktree
+## Formulário de pré-briefing
 
-Depois de publicar, o endereço do formulário é `https://SEU-DOMINIO/materiais/pre-briefing.html`. Ele abre sem login e é o link a colocar no Linktree.
+O link público do formulário, que vai no Linktree, é publicado à parte, em repositório próprio (pacote `formulario-pre-briefing`). A Central traz uma cópia em `materiais/pre-briefing.html` para abrir no visualizador interno.
 
-As respostas são enviadas por WhatsApp para o número definido em `materiais/pre-briefing.html`, na linha `var WHATSAPP='5511976875699';` (DDI + DDD + número, só dígitos).
+Para a Central abrir o link público em vez da cópia, preencha no `index.html` a linha `const PREBRIEFING_URL='';` com o endereço publicado, por exemplo `const PREBRIEFING_URL='https://SEU-DOMINIO/';`.
+
+As respostas são enviadas por WhatsApp para o número definido na linha `var WHATSAPP='5511976875699';` do formulário (DDI + DDD + número, só dígitos). Se trocar o número, troque nas duas cópias.
 
 ## Suporte
 
