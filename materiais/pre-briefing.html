@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pré-briefing de encomendas · Vanessa Cunha Cerâmica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--creme:#F3EDE3;--areia:#E8DFD2;--linha:#C9B9A2;--barro:#8A5E3F;--barro2:#6B4A32;--ouro:#A67C48;--grafite:#2A241E;--texto:#3F372F;--suave:#6A5D50;
+ --serif:'Noto Serif','Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;--sans:'Avenir Next','Segoe UI',system-ui,-apple-system,sans-serif;
+ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--creme);color:var(--texto);font-family:var(--sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+h1,h2{font-family:var(--serif);color:var(--grafite);line-height:1.12;letter-spacing:-.01em}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--barro);outline-offset:3px}
+.wrap{max-width:760px;margin:0 auto;padding:0 22px}
+header{padding:56px 0 36px;display:flex;flex-direction:column;gap:22px}
+header img{width:210px}
+.kicker{font-size:12.5px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--barro)}
+h1{font-size:clamp(34px,6vw,52px)}
+.lead{font-size:19px;color:var(--texto)}
+.aviso{background:#fff;border-left:4px solid var(--ouro);padding:18px 22px;font-size:16px}
+.prog{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(243,237,227,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:12px 0;border-bottom:1px solid var(--linha)}
+.prog .in{display:flex;align-items:center;gap:14px;font-size:13.5px;font-weight:700;color:var(--suave)}
+.prog .tr{flex:1;height:6px;border-radius:999px;background:var(--areia);overflow:hidden}
+.prog .tr i{display:block;height:100%;width:0;background:var(--barro);border-radius:999px;transition:width .5s ease}
+.q{background:#fff;padding:28px;margin-top:18px;display:flex;flex-direction:column;gap:14px}
+.q legend,.q .lb{font-family:var(--serif);font-weight:700;font-size:21px;color:var(--grafite);line-height:1.25;padding:0;display:block}
+.q .n{font-style:italic;font-weight:400;color:var(--ouro);margin-right:8px}
+.q .op{font-family:var(--sans);font-weight:600;font-size:13px;color:var(--suave);margin-left:8px}
+fieldset{border:0;min-width:0}
+fieldset.q{display:flex}
+.hint{font-size:15px;color:var(--suave)}
+input[type=text],input[type=tel],input[type=email],input[type=date],input[type=number],textarea{width:100%;min-height:52px;padding:12px 16px;border:1.5px solid var(--linha);background:var(--creme);font-size:17px;border-radius:0;transition:.2s}
+textarea{min-height:120px;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:var(--barro);background:#fff;box-shadow:0 0 0 4px rgba(138,94,63,.14)}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opts.row{flex-direction:row;flex-wrap:wrap}
+.opt{position:relative;display:flex;align-items:center;gap:12px;min-height:52px;padding:10px 16px;border:1.5px solid var(--linha);background:var(--creme);cursor:pointer;transition:.2s;font-size:16.5px}
+.opts.row .opt{flex:1 1 130px}
+.opt:hover{border-color:var(--barro)}
+.opt input{appearance:none;-webkit-appearance:none;flex:none;width:22px;height:22px;border:2px solid var(--ouro);border-radius:50%;background:#fff;display:grid;place-items:center;cursor:pointer}
+.opt input:checked::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--barro)}
+.opt:has(input:checked){border-color:var(--barro);background:#fff;box-shadow:inset 0 0 0 1px var(--barro)}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.duo label{font-size:14px;font-weight:700;color:var(--suave);display:flex;flex-direction:column;gap:6px}
+.extra{display:none;flex-direction:column;gap:8px}
+.extra.on{display:flex}
+.extra label{font-size:14px;font-weight:700;color:var(--suave)}
+.obs{background:var(--areia);padding:16px 18px;font-size:15px;color:var(--texto)}
+.err{display:none;color:#9B2C1A;font-size:14.5px;font-weight:700}
+.bad .err{display:block}
+.bad input,.bad textarea{border-color:#9B2C1A}
+.send{margin-top:26px;display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.btn{min-height:58px;padding:0 30px;background:var(--grafite);color:var(--creme);font-size:17px;font-weight:700;border:0;cursor:pointer;transition:.25s;display:inline-flex;align-items:center;gap:12px}
+.btn:hover{background:var(--barro)}
+.btn svg{width:22px;height:22px}
+.ghost{background:none;border:0;color:var(--barro2);font-weight:700;font-size:15px;text-decoration:underline;cursor:pointer;min-height:44px}
+.next{background:var(--grafite);color:var(--creme);margin-top:56px;padding:56px 0 64px}
+.next h2{color:var(--creme);font-size:30px;margin-bottom:18px}
+.next p{color:#E6DDCF;margin-bottom:12px}
+.next p.it{font-family:var(--serif);font-style:italic;color:#C9A27A;font-size:19px;margin-top:20px}
+.next img{width:200px;margin-top:34px}
+.done{display:none;background:#fff;padding:36px 28px;margin-top:18px;flex-direction:column;gap:14px;align-items:flex-start}
+.done.on{display:flex}
+.done h2{font-size:28px}
+@media (max-width:520px){.q{padding:22px 18px}.duo{grid-template-columns:minmax(0,1fr)}body{font-size:16px}.btn{width:100%;justify-content:center}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="../assets/logo-vc-areia.png" alt="Vanessa Cunha">
+    <div class="kicker">Encomendas</div>
+    <h1>Pré-briefing da sua peça</h1>
+    <p class="lead">Cada peça da Vanessa Cunha Cerâmica é produzida artesanalmente e pode ser desenvolvida sob encomenda. Este formulário nos ajuda a entender o que você procura e a preparar uma proposta de acordo com as características da peça.</p>
+    <p class="aviso">O preenchimento não representa a confirmação da encomenda. Após o envio, analisaremos a solicitação e entraremos em contato para confirmar possibilidades, prazo e orçamento.</p>
+  </header>
+</div>
+
+<div class="prog" aria-hidden="true"><div class="wrap in"><span id="pn">0 de 13</span><div class="tr"><i id="pb"></i></div></div></div>
+
+<main class="wrap" id="form">
+  <div class="q" data-q="nome" data-req="1"><label class="lb" for="nome"><span class="n">1</span>Nome completo</label><input id="nome" type="text" autocomplete="name"><p class="err">Informe o seu nome para continuarmos.</p></div>
+
+  <div class="q" data-q="whats" data-req="1"><label class="lb" for="whats"><span class="n">2</span>WhatsApp</label><input id="whats" type="tel" autocomplete="tel" inputmode="tel" placeholder="(00) 00000-0000"><p class="err">Informe um WhatsApp com DDD para falarmos com você.</p></div>
+
+  <div class="q" data-q="email"><label class="lb" for="email"><span class="n">3</span>E-mail<span class="op">opcional</span></label><input id="email" type="email" autocomplete="email"></div>
+
+  <fieldset class="q" data-q="busca"><legend><span class="n">4</span>O que você está buscando?</legend>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="busca" value="Um vaso semelhante a uma peça já produzida pela Vanessa">Um vaso semelhante a uma peça já produzida pela Vanessa</label>
+      <label class="opt"><input type="radio" name="busca" value="Um vaso personalizado a partir de uma referência">Um vaso personalizado a partir de uma referência</label>
+      <label class="opt"><input type="radio" name="busca" value="Tenho uma ideia, mas preciso de orientação">Tenho uma ideia, mas preciso de orientação</label>
+      <label class="opt"><input type="radio" name="busca" value="Outro" data-extra="busca-x">Outro</label>
+    </div>
+    <div class="extra" id="busca-x"><label for="busca-o">Conte o que você procura</label><input id="busca-o" type="text"></div>
+  </fieldset>
+
+  <div class="q" data-q="peca"><label class="lb" for="peca"><span class="n">5</span>Conte um pouco sobre a peça que você imagina</label><p class="hint">Você pode contar sobre formato, estilo, proporção ou qualquer característica importante para você.</p><textarea id="peca"></textarea></div>
+
+  <fieldset class="q" data-q="tam"><legend><span class="n">6</span>Qual tamanho você imagina para o vaso?</legend>
+    <div class="opts row">
+      <label class="opt"><input type="radio" name="tam" value="Pequeno">Pequeno</label>
+      <label class="opt"><input type="radio" name="tam" value="Médio">Médio</label>
+      <label class="opt"><input type="radio" name="tam" value="Grande">Grande</label>
+      <label class="opt"><input type="radio" name="tam" value="Ainda não sei">Ainda não sei</label>
+    </div>
+    <p class="hint">Se já souber, informe as medidas. Nesta etapa elas são aproximadas.</p>
+    <div class="duo"><label>Altura<input id="alt" type="text" inputmode="decimal" placeholder="ex.: 30 cm"></label><label>Largura ou diâmetro<input id="larg" type="text" inputmode="decimal" placeholder="ex.: 18 cm"></label></div>
+  </fieldset>
+
+  <div class="q" data-q="cor"><label class="lb" for="cor"><span class="n">7</span>Existe alguma preferência de cor ou tonalidade?</label><p class="hint">Por exemplo: tons naturais, claros, terrosos, escuros.</p><input id="cor" type="text"></div>
+
+  <fieldset class="q" data-q="acab"><legend><span class="n">8</span>Existe alguma preferência de acabamento ou textura?</legend>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="acab" value="Mais natural/rústico">Mais natural ou rústico</label>
+      <label class="opt"><input type="radio" name="acab" value="Mais liso">Mais liso</label>
+      <label class="opt"><input type="radio" name="acab" value="Com textura">Com textura</label>
+      <label class="opt"><input type="radio" name="acab" value="Sem preferência">Sem preferência</label>
+      <label class="opt"><input type="radio" name="acab" value="Gostaria da orientação da Vanessa">Gostaria da orientação da Vanessa</label>
+      <label class="opt"><input type="radio" name="acab" value="Outro" data-extra="acab-x">Outro</label>
+    </div>
+    <div class="extra" id="acab-x"><label for="acab-o">Qual acabamento você imagina?</label><input id="acab-o" type="text"></div>
+  </fieldset>
+
+  <fieldset class="q" data-q="ref"><legend><span class="n">9</span>Você possui alguma referência visual?</legend>
+    <p class="hint">Pode ser uma peça da própria Vanessa, uma inspiração de formato, ambiente, textura ou proporção.</p>
+    <div class="opts row">
+      <label class="opt"><input type="radio" name="ref" value="Sim, vou enviar imagens pelo WhatsApp">Sim, tenho imagens</label>
+      <label class="opt"><input type="radio" name="ref" value="Não tenho referência">Não tenho</label>
+    </div>
+    <p class="obs">Se tiver imagens, envie na conversa do WhatsApp logo depois deste formulário. As referências são usadas apenas para compreender a sua preferência estética. Por se tratar de um trabalho autoral e artesanal, não realizamos cópias exatas de peças de outros artistas ou marcas.</p>
+  </fieldset>
+
+  <fieldset class="q" data-q="qtd"><legend><span class="n">10</span>Quantas peças você deseja?</legend>
+    <div class="opts row">
+      <label class="opt"><input type="radio" name="qtd" value="1">1</label>
+      <label class="opt"><input type="radio" name="qtd" value="2">2</label>
+      <label class="opt"><input type="radio" name="qtd" value="3 ou mais" data-extra="qtd-x">3 ou mais</label>
+    </div>
+    <div class="extra" id="qtd-x"><label for="qtd-o">Informe a quantidade aproximada</label><input id="qtd-o" type="text" inputmode="numeric"></div>
+  </fieldset>
+
+  <fieldset class="q" data-q="prazo"><legend><span class="n">11</span>Existe uma data ou ocasião específica para receber a peça?</legend>
+    <div class="opts row">
+      <label class="opt"><input type="radio" name="prazo" value="Não tenho prazo específico">Não tenho prazo específico</label>
+      <label class="opt"><input type="radio" name="prazo" value="Sim" data-extra="prazo-x">Sim</label>
+    </div>
+    <div class="extra" id="prazo-x"><label for="prazo-o">Qual seria a data desejada?</label><input id="prazo-o" type="text" placeholder="ex.: 20 de dezembro, presente de casamento"></div>
+  </fieldset>
+
+  <fieldset class="q" data-q="local"><legend><span class="n">12</span>Onde a peça será entregue?</legend>
+    <p class="hint">Nesta etapa, só o CEP e a cidade. Não é preciso informar o endereço completo.</p>
+    <div class="duo"><label>CEP<input id="cep" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="00000-000"></label><label>Cidade e estado<input id="cidade" type="text" placeholder="ex.: São Paulo/SP"></label></div>
+  </fieldset>
+
+  <div class="q" data-q="mais"><label class="lb" for="mais"><span class="n">13</span>Existe alguma informação importante que não perguntamos acima?<span class="op">opcional</span></label><textarea id="mais"></textarea></div>
+
+  <div class="send" id="send">
+    <button class="btn" id="enviar" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.6-4.7A8.5 8.5 0 1 1 8 19.6z"/></svg>Enviar pelo WhatsApp</button>
+    <p class="hint">Ao enviar, o WhatsApp abre com as suas respostas já escritas. É só confirmar o envio da mensagem.</p>
+  </div>
+
+  <div class="done" id="done" role="status">
+    <h2>Respostas prontas para envio</h2>
+    <p>O WhatsApp foi aberto com o seu pré-briefing. Confirme o envio da mensagem por lá e, se tiver imagens de referência, mande na mesma conversa.</p>
+    <a class="btn" id="again" href="#" target="_blank" rel="noopener">Abrir o WhatsApp de novo</a>
+    <button class="ghost" id="copiar" type="button">Copiar as respostas</button>
+  </div>
+</main>
+
+<section class="next">
+  <div class="wrap">
+    <h2>Próximos passos</h2>
+    <p>Após recebermos o seu formulário, a Vanessa avaliará a solicitação considerando características da peça, viabilidade de produção e prazo.</p>
+    <p>Se a encomenda puder ser realizada, entraremos em contato pelo WhatsApp com as orientações e o orçamento.</p>
+    <p class="it">Por se tratar de uma peça artesanal e produzida sob encomenda, pequenas variações fazem parte do processo e tornam cada peça única.</p>
+    <img src="../assets/logo-vc-offwhite.png" alt="Vanessa Cunha">
+  </div>
+</section>
+
+<script>
+(function(){
+  /* Número que recebe o pré-briefing (WhatsApp da Vanessa Cunha Cerâmica): DDI + DDD + número, só dígitos */
+  var WHATSAPP='5511976875699';
+  var $=function(s){return document.querySelector(s);}, $$=function(s){return [].slice.call(document.querySelectorAll(s));};
+  var v=function(id){var e=document.getElementById(id);return e?e.value.trim():'';};
+  var r=function(n){var e=document.querySelector('input[name="'+n+'"]:checked');return e?e.value:'';};
+  /* campos condicionais */
+  $$('input[type=radio]').forEach(function(i){i.addEventListener('change',function(){
+    $$('input[name="'+i.name+'"]').forEach(function(o){if(o.dataset.extra)document.getElementById(o.dataset.extra).classList.toggle('on',o.checked);});
+    progresso();});});
+  $$('input[type=text],input[type=tel],input[type=email],textarea').forEach(function(i){i.addEventListener('input',function(){var q=i.closest('.q');if(q)q.classList.remove('bad');progresso();});});
+  /* máscara simples de telefone */
+  $('#whats').addEventListener('input',function(e){var d=e.target.value.replace(/\D/g,'').slice(0,11),o=d;
+    if(d.length>2)o='('+d.slice(0,2)+') '+d.slice(2);
+    if(d.length>7)o='('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7);
+    e.target.value=o;});
+  function respondida(q){var k=q.dataset.q;
+    if(k==='tam')return !!(r('tam')||v('alt')||v('larg'));
+    if(k==='local')return !!(v('cep')||v('cidade'));
+    var rad=q.querySelector('input[type=radio]');if(rad)return !!r(rad.name);
+    var f=q.querySelector('input,textarea');return !!(f&&f.value.trim());}
+  function progresso(){var qs=$$('.q'),n=qs.filter(respondida).length;$('#pn').textContent=n+' de '+qs.length;$('#pb').style.width=(100*n/qs.length)+'%';}
+  function mensagem(){
+    var L=['*Pré-briefing de encomenda*','Vanessa Cunha Cerâmica',''];
+    function add(t,x){if(x)L.push('*'+t+':* '+x);}
+    add('Nome',v('nome'));add('WhatsApp',v('whats'));add('E-mail',v('email'));
+    var b=r('busca');if(b==='Outro'&&v('busca-o'))b='Outro: '+v('busca-o');add('O que busca',b);
+    add('Sobre a peça',v('peca'));
+    var t=[r('tam'),v('alt')?'altura '+v('alt'):'',v('larg')?'largura/diâmetro '+v('larg'):''].filter(Boolean).join(', ');add('Tamanho (aproximado)',t);
+    add('Cor ou tonalidade',v('cor'));
+    var a=r('acab');if(a==='Outro'&&v('acab-o'))a='Outro: '+v('acab-o');add('Acabamento ou textura',a);
+    add('Referência visual',r('ref'));
+    var q=r('qtd');if(q==='3 ou mais'&&v('qtd-o'))q='3 ou mais (aprox. '+v('qtd-o')+')';add('Quantidade',q);
+    var p=r('prazo');if(p==='Sim')p=v('prazo-o')?'Sim: '+v('prazo-o'):'Sim';add('Data ou ocasião',p);
+    add('Entrega',[v('cep')?'CEP '+v('cep'):'',v('cidade')].filter(Boolean).join(', '));
+    add('Outras informações',v('mais'));
+    return L.join('\n');}
+  function validar(){var ok=true,first=null;
+    [['nome',v('nome').length>=2],['whats',v('whats').replace(/\D/g,'').length>=10]].forEach(function(x){var q=document.querySelector('[data-q="'+x[0]+'"]');q.classList.toggle('bad',!x[1]);if(!x[1]){ok=false;first=first||q;}});
+    if(first){first.scrollIntoView({behavior:'smooth',block:'center'});var f=first.querySelector('input');if(f)f.focus({preventScroll:true});}
+    return ok;}
+  $('#enviar').addEventListener('click',function(){
+    if(!validar())return;
+    var url='https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent(mensagem());
+    $('#again').href=url;$('#done').classList.add('on');$('#send').style.display='none';
+    window.open(url,'_blank','noopener');
+    $('#done').scrollIntoView({behavior:'smooth',block:'center'});});
+  $('#copiar').addEventListener('click',function(){var b=this,t=mensagem();
+    function ok(){b.textContent='Respostas copiadas';setTimeout(function(){b.textContent='Copiar as respostas';},2200);}
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok,function(){b.textContent='Não foi possível copiar';});
+    else b.textContent='Não foi possível copiar';});
+  progresso();
+})();
+</script>
+</body>
+</html>
